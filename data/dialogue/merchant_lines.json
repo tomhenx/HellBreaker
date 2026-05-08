@@ -1,0 +1,44 @@
+{
+  "lines": [
+    {
+      "text": "Ah, a fresh soul wanders into my shop. What can I tempt you with today?",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_01.mp3"
+    },
+    {
+      "text": "Everything has a price down here. Lucky for you, I accept more than just gold.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_02.mp3"
+    },
+    {
+      "text": "Death didn't stop you, did it? Good. The dead make the best customers.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_03.mp3"
+    },
+    {
+      "text": "Buy, sell, or be consumed. Those are your options, friend.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_04.mp3"
+    },
+    {
+      "text": "I've been dealing in the damned for centuries. Trust me, you want what I'm selling.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_05.mp3"
+    },
+    {
+      "text": "Even in Hell, supply and demand rules all. And demand is quite high lately.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_06.mp3"
+    },
+    {
+      "text": "Careful with that weapon. I'd hate to have to mop you off my floor.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_07.mp3"
+    },
+    {
+      "text": "Word travels fast down here. I heard you've been making quite a mess.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_08.mp3"
+    },
+    {
+      "text": "Don't let the fire and screaming put you off. It's quite cozy once you get used to it.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_09.mp3"
+    },
+    {
+      "text": "Come back soon. The darkness here gets lonely, even for me.",
+      "audio": "res://assets/audio/dialogue/merchant/merchant_line_10.mp3"
+    }
+  ]
+}

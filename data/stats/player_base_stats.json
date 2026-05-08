@@ -1,0 +1,15 @@
+{
+  "max_hp": 100,
+  "damage": 25,
+  "attack_speed": 1.0,
+  "attack_range": 300.0,
+  "move_speed": 160.0,
+  "crit_chance": 0.05,
+  "crit_multiplier": 2.0,
+  "charisma": 1,
+  "dodge_speed": 320.0,
+  "dodge_duration": 0.18,
+  "dodge_cooldown": 0.8,
+  "projectile_speed": 400.0,
+  "iframes_duration": 0.5
+}
