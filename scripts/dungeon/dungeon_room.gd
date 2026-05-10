@@ -29,7 +29,7 @@ const _ENEMIES_T3: Array[String] = [
 	"res://scenes/enemies/lava_blob.tscn",
 ]
 const _BOSS_SCENE     := "res://scenes/enemies/lava_king_slime.tscn"
-const _MINIBOSS_POOL  := ["res://scenes/enemies/orc.tscn", "res://scenes/enemies/lava_blob.tscn"]
+const _MINIBOSS_POOL: Array[String] = ["res://scenes/enemies/orc.tscn", "res://scenes/enemies/lava_blob.tscn"]
 const _CHEST_SCENE    := "res://scenes/items/chest_drop.tscn"
 const _SFX_DOOR_OPEN  := "res://assets/audio/sfx/dungeon_door_open.mp3"
 const _SFX_DOOR_LOCK  := "res://assets/audio/sfx/dungeon_door_lock.mp3"
