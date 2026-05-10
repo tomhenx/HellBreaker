@@ -386,40 +386,58 @@ func _wall(rect: Rect2, wall_col: Color, trim_col: Color) -> void:
 	add_child(tr)
 
 
-func _make_barrier(dir: Vector2i, rect: Rect2) -> void:
+func _make_barrier(dir: Vector2i, gap_rect: Rect2) -> void:
 	var root := Node2D.new()
 	root.visible = false
 	add_child(root)
 	_barriers[dir] = root
 
+	# Visual stays in the door gap so the player can see the door is locked
 	var fill := ColorRect.new()
-	fill.position = rect.position
-	fill.size     = rect.size
+	fill.position = gap_rect.position
+	fill.size     = gap_rect.size
 	fill.color    = Color(0.5, 0.0, 0.0, 0.80)
 	root.add_child(fill)
 
-	# Center bar
 	var bar := ColorRect.new()
 	bar.color = Color(0.85, 0.15, 0.05, 0.95)
-	if rect.size.x >= rect.size.y:
-		bar.position = Vector2(rect.position.x, rect.position.y + rect.size.y * 0.5 - 3.0)
-		bar.size     = Vector2(rect.size.x, 6.0)
+	if gap_rect.size.x >= gap_rect.size.y:
+		bar.position = Vector2(gap_rect.position.x, gap_rect.position.y + gap_rect.size.y * 0.5 - 3.0)
+		bar.size     = Vector2(gap_rect.size.x, 6.0)
 	else:
-		bar.position = Vector2(rect.position.x + rect.size.x * 0.5 - 3.0, rect.position.y)
-		bar.size     = Vector2(6.0, rect.size.y)
+		bar.position = Vector2(gap_rect.position.x + gap_rect.size.x * 0.5 - 3.0, gap_rect.position.y)
+		bar.size     = Vector2(6.0, gap_rect.size.y)
 	root.add_child(bar)
 
-	var body := StaticBody2D.new()
+	# Physics body placed INSIDE the room (DOOR_W pixels past the inner wall edge).
+	# This lets players walk IN through the gap but blocks them from walking OUT.
+	var phy_rect := _inner_barrier_rect(dir)
+	var body     := StaticBody2D.new()
 	body.name            = "PhysicsBody"
 	body.collision_layer = 0   # passable until room is locked
 	body.collision_mask  = 0
 	var cs    := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
-	shape.size   = rect.size
-	cs.position  = rect.position + rect.size * 0.5
+	shape.size   = phy_rect.size
+	cs.position  = phy_rect.position + phy_rect.size * 0.5
 	cs.shape     = shape
 	body.add_child(cs)
 	root.add_child(body)
+
+
+func _inner_barrier_rect(dir: Vector2i) -> Rect2:
+	const INSET  := DOOR_W   # px past the inner wall edge
+	const THICK  := 8.0
+	match dir:
+		Vector2i(0, -1):  # north door — barrier south of inner wall edge
+			return Rect2(DOOR_HX, WALL_T + INSET, DOOR_W, THICK)
+		Vector2i(0,  1):  # south door — barrier north of inner wall edge
+			return Rect2(DOOR_HX, ROOM_H - WALL_T - INSET - THICK, DOOR_W, THICK)
+		Vector2i(-1, 0):  # west door — barrier east of inner wall edge
+			return Rect2(WALL_T + INSET, DOOR_HY, THICK, DOOR_W)
+		Vector2i(1,  0):  # east door — barrier west of inner wall edge
+			return Rect2(ROOM_W - WALL_T - INSET - THICK, DOOR_HY, THICK, DOOR_W)
+	return Rect2()
 
 
 func _add_boss_door_glow(dir: Vector2i) -> void:
