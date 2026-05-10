@@ -1,0 +1,245 @@
+{
+  "items": {
+    "throwing_axe": {
+      "name": "Demonic Throwing Axe",
+      "description": "Forged in hellfire. Spins through the air with deadly, cursed precision.",
+      "type": "weapon",
+      "equip_slot": "weapon",
+      "weapon_id": "throwing_axe",
+      "rarity": "epic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/throwing_axe.png",
+      "stat_bonuses": {},
+      "passive_effects": []
+    },
+    "wooden_sword": {
+      "name": "Wooden Sword",
+      "description": "A crude training sword. Better than nothing.",
+      "type": "weapon",
+      "equip_slot": "weapon",
+      "weapon_id": "wooden_sword",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/wooden_sword.png",
+      "stat_bonuses": {},
+      "passive_effects": []
+    },
+    "tequila_of_don_tomko": {
+      "name": "Tequila of Don Tomko",
+      "description": "Aged in demon oak barrels by Don Tomko himself. Burns like hellfire on the way down, heals twice as good on the way back. Side effects include poor decisions and +3 charisma.",
+      "type": "relic",
+      "equip_slot": "",
+      "rarity": "relic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/tequila_of_don_tomko.png",
+      "stat_bonuses": { "charisma": 3 },
+      "passive_effects": [
+        { "type": "hp_regen", "amount": 1, "interval": 5.0 }
+      ]
+    },
+    "good_boys_collar": {
+      "name": "The Good Boy's Collar",
+      "description": "A battered leather collar with small dull spikes. Its previous owner answers to 'Rex' and takes his job very seriously. He will find enemies. He will bite them. He is a very good boy.",
+      "type": "relic",
+      "equip_slot": "necklace",
+      "rarity": "relic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/good_boys_collar.png",
+      "stat_bonuses": {},
+      "passive_effects": [
+        { "type": "dog_companion" }
+      ]
+    },
+    "skull_of_uncle_fernando": {
+      "name": "Skull of Uncle Fernando",
+      "description": "Fernando swore he'd always watch your back. Now he literally does — from your belt, occasionally screaming. The damage bonus comes from pure familial disappointment. He also regens your HP out of spite.",
+      "type": "relic",
+      "equip_slot": "",
+      "rarity": "relic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/skull_of_uncle_fernando.png",
+      "stat_bonuses": { "damage": 15, "charisma": 5 },
+      "passive_effects": [
+        { "type": "hp_regen", "amount": 2, "interval": 7.0 }
+      ]
+    },
+    "stamp_of_administrative_termination": {
+      "name": "Stamp of Administrative Termination",
+      "description": "Found in Hell's HR department, 7th Circle. Any demon you kill is now officially 'administratively terminated'. Demons respect the paperwork. Side effects: +10 charisma, mild carpal tunnel.",
+      "type": "relic",
+      "equip_slot": "offhand",
+      "rarity": "relic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/stamp_of_administrative_termination.png",
+      "stat_bonuses": { "attack_speed": 0.25, "charisma": 10 },
+      "passive_effects": [
+        { "type": "hp_regen", "amount": 1, "interval": 4.0 }
+      ]
+    },
+    "leather_helm": {
+      "name": "Leather Helm",
+      "description": "A simple cap of cured hide. Barely keeps your skull intact, but it's better than nothing.",
+      "type": "head",
+      "equip_slot": "head",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/leather_helm.png",
+      "stat_bonuses": { "armor": 1 },
+      "passive_effects": []
+    },
+    "leather_chestplate": {
+      "name": "Leather Chestplate",
+      "description": "Cracked and worn, but better than fighting bare-chested in Hell.",
+      "type": "chest",
+      "equip_slot": "chest",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/leather_chestplate.png",
+      "stat_bonuses": { "armor": 1 },
+      "passive_effects": []
+    },
+    "leather_leggings": {
+      "name": "Leather Leggings",
+      "description": "Heavy enough to protect your legs, light enough to still run from demons. The extra pockets don't hurt either.",
+      "type": "legs",
+      "equip_slot": "legs",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/leather_leggings.png",
+      "stat_bonuses": { "armor": 1, "inventory_slots": 1 },
+      "passive_effects": []
+    },
+    "leather_gloves": {
+      "name": "Leather Gloves",
+      "description": "Worn knuckle pads stitched in a hurry. Your hands thank you.",
+      "type": "hands",
+      "equip_slot": "hands",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/leather_gloves.png",
+      "stat_bonuses": { "armor": 1 },
+      "passive_effects": []
+    },
+    "leather_boots": {
+      "name": "Leather Boots",
+      "description": "Comfortable enough to walk on hellfire. Mostly.",
+      "type": "feet",
+      "equip_slot": "feet",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/leather_boots.png",
+      "stat_bonuses": { "armor": 1 },
+      "passive_effects": []
+    },
+    "iron_band": {
+      "name": "Iron Band",
+      "description": "A crude band of iron hammered in Hell's forge. It itches constantly. Nobody knows why.",
+      "type": "ring",
+      "equip_slot": "ring",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/iron_band.png",
+      "stat_bonuses": { "armor": 2 },
+      "passive_effects": []
+    },
+    "swift_ring": {
+      "name": "Ring of Swift Steps",
+      "description": "Forged from the soul of a demon who never stopped running. Now you won't either. Keep moving or it tightens. (It doesn't actually tighten. Probably.)",
+      "type": "ring",
+      "equip_slot": "ring",
+      "rarity": "uncommon",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/swift_ring.png",
+      "stat_bonuses": { "move_speed": 15 },
+      "passive_effects": []
+    },
+    "bloodstone_ring": {
+      "name": "Bloodstone Ring",
+      "description": "The gem at the center bleeds when you're close to death. Or it's just always bleeding. Hard to tell. Increases your HP and makes your hits hurt more when you get lucky.",
+      "type": "ring",
+      "equip_slot": "ring",
+      "rarity": "rare",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/bloodstone_ring.png",
+      "stat_bonuses": { "max_hp": 15, "crit_chance": 0.05 },
+      "passive_effects": []
+    },
+    "serpents_coil": {
+      "name": "Serpent's Coil",
+      "description": "A snake eating its own tail. Philosophers love it. Demons hate it. Greatly increases critical chance and multiplier — because sometimes the snake bites where it hurts most.",
+      "type": "ring",
+      "equip_slot": "ring",
+      "rarity": "epic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/serpents_coil.png",
+      "stat_bonuses": { "crit_chance": 0.15, "crit_multiplier": 0.3 },
+      "passive_effects": []
+    },
+    "infernal_signet": {
+      "name": "Infernal Signet",
+      "description": "The seal of a demon lord who shall not be named. He is definitely looking for this. Wear it anyway — the power is worth the consequences.",
+      "type": "ring",
+      "equip_slot": "ring",
+      "rarity": "legendary",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/infernal_signet.png",
+      "stat_bonuses": { "damage": 20, "crit_chance": 0.1 },
+      "passive_effects": []
+    },
+    "bone_necklace": {
+      "name": "Bone Necklace",
+      "description": "Strung together from finger bones. Probably not yours. Probably.",
+      "type": "necklace",
+      "equip_slot": "necklace",
+      "rarity": "common",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/bone_necklace.png",
+      "stat_bonuses": { "max_hp": 8 },
+      "passive_effects": []
+    },
+    "silver_chain": {
+      "name": "Silver Chain",
+      "description": "Pure silver. Demons wince when they see it, which gives you a small but satisfying edge in combat and negotiations.",
+      "type": "necklace",
+      "equip_slot": "necklace",
+      "rarity": "uncommon",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/silver_chain.png",
+      "stat_bonuses": { "damage": 5, "armor": 1 },
+      "passive_effects": []
+    },
+    "amulet_of_speed": {
+      "name": "Amulet of Swiftness",
+      "description": "Carved from a time crystal found on the 4th floor. Whoever made it was clearly in a real hurry. Boosts attack speed and movement — you will also be in a real hurry.",
+      "type": "necklace",
+      "equip_slot": "necklace",
+      "rarity": "rare",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/amulet_of_speed.png",
+      "stat_bonuses": { "attack_speed": 0.3, "move_speed": 10 },
+      "passive_effects": []
+    },
+    "deaths_embrace": {
+      "name": "Death's Embrace",
+      "description": "The cold clasp of this pendant feels like a bony hug. Intimate, in a very bad way. Massively increases survivability — Death, apparently, wants you to last longer.",
+      "type": "necklace",
+      "equip_slot": "necklace",
+      "rarity": "epic",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/deaths_embrace.png",
+      "stat_bonuses": { "max_hp": 25, "crit_chance": 0.1, "armor": 2 },
+      "passive_effects": []
+    },
+    "demons_pendant": {
+      "name": "Demon's Pendant",
+      "description": "Stolen from a Succubus mid-conversation. She is still annoyed about it. The raw demonic energy inside massively boosts damage and attack speed.",
+      "type": "necklace",
+      "equip_slot": "necklace",
+      "rarity": "legendary",
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/demons_pendant.png",
+      "stat_bonuses": { "damage": 18, "attack_speed": 0.4, "crit_multiplier": 0.2 },
+      "passive_effects": []
+    }
+  }
+}

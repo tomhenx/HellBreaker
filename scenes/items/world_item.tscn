@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_wi"]
+
+[sub_resource type="CircleShape2D" id="Circle_wi"]
+radius = 14.0
+
+[node name="WorldItem" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_wi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_wi")

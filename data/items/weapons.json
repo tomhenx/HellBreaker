@@ -1,0 +1,23 @@
+{
+  "weapons": {
+    "throwing_axe": {
+      "name": "Demonic Throwing Axe",
+      "damage_multiplier": 1.0,
+      "projectile_speed_multiplier": 1.0,
+      "attack_speed_multiplier": 1.0,
+      "range": 280.0,
+      "spin_speed": 480.0,
+      "weapon_type": "ranged",
+      "projectile_scene": "res://scenes/combat/throwing_axe.tscn",
+      "hand_texture": "res://assets/sprites/items/throwing_axe.png"
+    },
+    "wooden_sword": {
+      "name": "Wooden Sword",
+      "damage_multiplier": 0.4,
+      "attack_speed_multiplier": 0.65,
+      "range": 70.0,
+      "weapon_type": "melee",
+      "hand_texture": "res://assets/sprites/items/wooden_sword.png"
+    }
+  }
+}

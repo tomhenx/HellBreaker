@@ -33,6 +33,7 @@ func _ready() -> void:
 	_prewarm_audio()
 	await get_tree().process_frame
 	_play_entrance()
+	MusicManager.play_menu_music()
 
 
 func _cache_nodes() -> void:
@@ -72,16 +73,16 @@ func _setup_layout() -> void:
 	_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	# Title logo — centered, preserves aspect ratio
-	_title.set_position(Vector2(290, 55))
-	_title.set_size(Vector2(700, 220))
+	_title.set_position(Vector2(115, 8))
+	_title.set_size(Vector2(1050, 328))
 	_title.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_title.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_title.pivot_offset = Vector2(350, 110)
+	_title.pivot_offset = Vector2(525, 164)
 
-	_tagline.set_position(Vector2(440, 278))
+	_tagline.set_position(Vector2(440, 342))
 	_tagline.set_size(Vector2(400, 36))
 
-	_buttons_box.set_position(Vector2(480, 330))
+	_buttons_box.set_position(Vector2(480, 388))
 	_buttons_box.set_size(Vector2(320, 290))
 
 	_version_label.set_position(Vector2(1140, 696))
@@ -248,14 +249,15 @@ func _connect_buttons() -> void:
 
 func _on_solo_pressed() -> void:
 	_play_click()
+	MusicManager.stop_all(0.4)
 	NetworkManager.disconnect_all()
 	await get_tree().create_timer(0.15).timeout
-	get_tree().change_scene_to_file("res://scenes/dungeon/test_room.tscn")
+	get_tree().change_scene_to_file("res://scenes/lobby/hell_lobby.tscn")
 
 
 func _on_coop_pressed() -> void:
 	_play_click()
-	# Clean up any leftover connection from a previous session
+	MusicManager.stop_all(0.4)
 	if multiplayer.has_multiplayer_peer():
 		NetworkManager.disconnect_all()
 	await get_tree().create_timer(0.15).timeout
@@ -264,7 +266,11 @@ func _on_coop_pressed() -> void:
 
 func _on_settings_pressed() -> void:
 	_play_click()
-	# TODO: open settings screen
+	var screen := load("res://scripts/ui/settings_screen.gd") as GDScript
+	if screen == null:
+		return
+	var node: SettingsScreen = screen.new()
+	add_child(node)
 
 
 func _on_exit_pressed() -> void:
