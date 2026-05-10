@@ -225,7 +225,7 @@ func _apply_lock(locked: bool) -> void:
 		b.visible = locked
 		var body: StaticBody2D = b.get_node_or_null("PhysicsBody")
 		if is_instance_valid(body):
-			body.process_mode = Node.PROCESS_MODE_INHERIT if locked else Node.PROCESS_MODE_DISABLED
+			body.collision_layer = 1 if locked else 0
 
 
 # ── Visual builders ──────────────────────────────────────────────────────────
@@ -411,7 +411,7 @@ func _make_barrier(dir: Vector2i, rect: Rect2) -> void:
 
 	var body := StaticBody2D.new()
 	body.name            = "PhysicsBody"
-	body.collision_layer = 1
+	body.collision_layer = 0   # passable until room is locked
 	body.collision_mask  = 0
 	var cs    := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
