@@ -482,6 +482,39 @@ func _build_decoration() -> void:
 		crack.z_index = -9
 		add_child(crack)
 
+	# ── Easter egg: hidden wall inscription (2% chance per room) ────────────
+	# Very few players will ever see this. It's earned.
+	if _rng.randf() < 0.02:
+		_build_secret_inscription()
+
+
+func _build_secret_inscription() -> void:
+	const _INSCRIPTIONS := [
+		"M.T. wuz here",
+		"Martin '26",
+		"Tatra Tea > everything",
+		"D.T. = Don Tomko",
+		"666% alc",
+		"Slovak Hell",
+		"M.Tomko lives here",
+		"Tequila o'clock",
+		"T.T.H.E.",           # Tatra Tea Hell Edition — cryptic
+	]
+	# Pick a wall edge to scratch it on (away from door gaps)
+	var wall_side := _rng.randi() % 4  # 0=top 1=bottom 2=left 3=right
+	var lbl       := Label.new()
+	lbl.text      = _INSCRIPTIONS[_rng.randi() % _INSCRIPTIONS.size()]
+	lbl.add_theme_font_size_override("font_size", 8)
+	lbl.add_theme_color_override("font_color", Color(0.28, 0.26, 0.22, 0.55))
+	lbl.z_index   = -6
+
+	match wall_side:
+		0: lbl.position = Vector2(_rng.randf_range(200.0, ROOM_W - 200.0), WALL_T + 2.0)
+		1: lbl.position = Vector2(_rng.randf_range(200.0, ROOM_W - 200.0), ROOM_H - WALL_T - 12.0)
+		2: lbl.position = Vector2(WALL_T + 2.0,  _rng.randf_range(120.0, ROOM_H - 120.0))
+		3: lbl.position = Vector2(ROOM_W - WALL_T - 80.0, _rng.randf_range(120.0, ROOM_H - 120.0))
+	add_child(lbl)
+
 
 func _build_altar() -> void:
 	var altar := Polygon2D.new()

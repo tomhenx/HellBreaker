@@ -68,7 +68,9 @@ var _chest_ready_peers: Array[int]  = []
 const _CHEST_SCREEN_PATH := "res://scenes/ui/chest_screen.tscn"
 
 # Passive effects
-var _passive_timers: Dictionary = {}  # item_id -> accumulated seconds
+var _passive_timers:   Dictionary = {}  # item_id -> accumulated seconds
+var _fire_trail_timer: float      = 0.0
+var _fire_trail_active: bool      = false
 
 # Run stats (reset each arena run)
 var stat_damage_dealt: float = 0.0
@@ -534,6 +536,13 @@ func revive(hp_percent: float = 0.30) -> void:
 
 func credit_kill() -> void:
 	stat_kills += 1
+	# on_kill_heal passive (e.g. Tatra Tea Hell Edition)
+	for item: ItemResource in _all_inventory_items():
+		for fx: Dictionary in item.passive_effects:
+			if fx.get("type", "") == "on_kill_heal":
+				var amount: float = float(fx.get("amount", 2.0))
+				current_hp = minf(current_hp + amount, stats.max_hp)
+				hp_changed.emit(current_hp, stats.max_hp)
 
 
 func credit_damage(amount: float) -> void:
@@ -709,15 +718,44 @@ func _recalculate_stats() -> void:
 func _process_passive_effects(delta: float) -> void:
 	if _is_dead:
 		return
+	_fire_trail_active = false
 	for item: ItemResource in _all_inventory_items():
 		if item.passive_effects.is_empty():
 			continue
 		var acc: float = _passive_timers.get(item.id, 0.0) + delta
 		for fx: Dictionary in item.passive_effects:
+			if fx.get("type", "") == "fire_trail":
+				_fire_trail_active = true
+				continue
 			var interval: float = float(fx.get("interval", 5.0))
 			if acc >= interval:
 				_execute_passive(fx)
 		_passive_timers[item.id] = fmod(acc, float(item.passive_effects[0].get("interval", 5.0)))
+
+	# Fire trail tick (independent of interval system)
+	if _fire_trail_active and is_multiplayer_authority():
+		_fire_trail_timer += delta
+		if _fire_trail_timer >= 0.18:
+			_fire_trail_timer = 0.0
+			_spawn_fire_ember()
+
+
+func _spawn_fire_ember() -> void:
+	var ember     := Polygon2D.new()
+	var r         := randf_range(5.0, 11.0)
+	var pts: Array[Vector2] = []
+	for i in range(6):
+		var a := i * TAU / 6.0 + randf_range(-0.4, 0.4)
+		pts.append(Vector2(cos(a) * r * randf_range(0.6, 1.2),
+		                   sin(a) * r * randf_range(0.6, 1.2)))
+	ember.polygon  = PackedVector2Array(pts)
+	ember.color    = Color(randf_range(0.9, 1.0), randf_range(0.3, 0.6), 0.0, 0.85)
+	ember.position = global_position + Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0))
+	ember.z_index  = -1
+	get_parent().add_child(ember)
+	var tw := ember.create_tween()
+	tw.tween_property(ember, "color:a", 0.0, randf_range(0.9, 1.8))
+	tw.tween_callback(ember.queue_free)
 
 
 func _execute_passive(fx: Dictionary) -> void:
@@ -1046,7 +1084,7 @@ func _trigger_chest_sequence(chest_type: String = "common") -> void:
 	var weights: Dictionary
 	if chest_type == "prismatic":
 		pool    = _build_relic_pool()
-		weights = {"relic": 100}
+		weights = {"relic": 100, "secret": 1}  # secret items are ultra-rare (~0.25% per roll)
 		if pool.is_empty():
 			pool    = _build_reward_pool()
 			weights = {"legendary": 80, "epic": 20}
@@ -1185,7 +1223,9 @@ static func _build_relic_pool() -> Array[ItemResource]:
 	var pool: Array[ItemResource] = []
 	for id: String in items_data.keys():
 		var d: Dictionary = items_data[id] as Dictionary
-		if d.get("rarity", "") != "relic":
+		var rarity: String = d.get("rarity", "")
+		# "secret" items (e.g. Tatra Tea) enter the pool at a tiny weight via drop_weight field
+		if rarity != "relic" and rarity != "secret":
 			continue
 		var item := ItemResource.from_id(id)
 		if item:

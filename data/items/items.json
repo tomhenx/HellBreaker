@@ -30,12 +30,38 @@
       "type": "relic",
       "equip_slot": "",
       "rarity": "relic",
+      "drop_weight": 8,
       "max_stack": 1,
       "icon": "res://assets/sprites/items/tequila_of_don_tomko.png",
       "stat_bonuses": { "charisma": 3 },
       "passive_effects": [
         { "type": "hp_regen", "amount": 1, "interval": 5.0 }
       ]
+    },
+    "tatra_tea_hell_edition": {
+      "name": "Tatra Tea — Hell Edition",
+      "description": "666% alcohol. Brewed in the Tatra mountains, finished in Hell's ninth circle, aged zero years because time doesn't exist down here. A Slovak national secret that was NEVER meant to reach this dimension. Whoever finds this either has extraordinary luck or extraordinary problems. Probably both. WARNING: Do NOT mix with Tequila of Don Tomko. The Riddle Man said so.",
+      "type": "relic",
+      "equip_slot": "",
+      "rarity": "secret",
+      "drop_weight": 0.1,
+      "max_stack": 1,
+      "icon": "res://assets/sprites/items/tatra_tea_hell_edition.png",
+      "stat_bonuses": {
+        "damage": 66,
+        "crit_chance": 0.13,
+        "crit_multiplier": 0.66,
+        "move_speed": 22,
+        "charisma": 6
+      },
+      "passive_effects": [
+        { "type": "fire_trail", "duration": 8.0, "damage": 6 },
+        { "type": "hp_regen", "amount": 3, "interval": 3.0 },
+        { "type": "on_kill_heal", "amount": 4 }
+      ],
+      "relic_color": "FF4400",
+      "relic_glow": "FF8800",
+      "flavor_note": "M.T. approved"
     },
     "good_boys_collar": {
       "name": "The Good Boy's Collar",
