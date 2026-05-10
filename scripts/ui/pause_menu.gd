@@ -4,6 +4,8 @@ extends Control
 signal resumed
 signal quit_to_menu_requested
 
+var quit_target_scene: String = "res://scenes/ui/main_menu.tscn"
+
 var _resume_btn:      Button
 var _settings_btn:    Button
 var _quit_btn:        Button
@@ -254,4 +256,4 @@ func _on_quit_pressed() -> void:
 		NetworkManager.disconnect_all()
 	await get_tree().create_timer(0.12).timeout
 	quit_to_menu_requested.emit()
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
+	get_tree().change_scene_to_file(quit_target_scene)

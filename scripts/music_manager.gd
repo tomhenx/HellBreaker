@@ -20,6 +20,26 @@ const _SURVIVOR_TRACKS: Array[String] = [
 	"res://assets/audio/music/survivor_10.mp3",
 ]
 
+const _DUNGEON_TRACKS: Array[String] = [
+	"res://assets/audio/music/dungeon_1.mp3",
+	"res://assets/audio/music/dungeon_2.mp3",
+	"res://assets/audio/music/dungeon_3.mp3",
+	"res://assets/audio/music/dungeon_4.mp3",
+]
+const _GARDEN_TRACKS: Array[String] = [
+	"res://assets/audio/music/garden_1.mp3",
+	"res://assets/audio/music/garden_2.mp3",
+	"res://assets/audio/music/garden_3.mp3",
+]
+const _HEAVEN_TRACKS: Array[String] = [
+	"res://assets/audio/music/heaven_1.mp3",
+	"res://assets/audio/music/heaven_2.mp3",
+]
+const _HELL_DUNGEON_TRACKS: Array[String] = [
+	"res://assets/audio/music/hell_dungeon_1.mp3",
+	"res://assets/audio/music/hell_dungeon_2.mp3",
+]
+
 var _player:         AudioStreamPlayer
 var _volume_linear:  float         = 0.75
 var _mode:           String        = "idle"
@@ -49,6 +69,19 @@ func play_survivor_music() -> void:
 	_mode = "survivor"
 	_rebuild_queue(_SURVIVOR_TRACKS)
 	_crossfade_to(_queue.pop_front())
+
+
+func play_dungeon_music(theme: int = 0) -> void:
+	_mode = "dungeon"
+	var tracks: Array[String]
+	match theme:
+		1: tracks = _GARDEN_TRACKS
+		2: tracks = _HEAVEN_TRACKS
+		3: tracks = _HELL_DUNGEON_TRACKS
+		_: tracks = _DUNGEON_TRACKS
+	_rebuild_queue(tracks)
+	if not _queue.is_empty():
+		_crossfade_to(_queue.pop_front())
 
 
 func play_boss_music(path: String) -> void:
@@ -109,11 +142,16 @@ func _on_finished() -> void:
 	match _mode:
 		"menu":     _advance()
 		"survivor": _advance()
+		"dungeon":  _advance()
 
 
 func _advance() -> void:
 	if _queue.is_empty():
-		var src := _MENU_TRACKS if _mode == "menu" else _SURVIVOR_TRACKS
+		var src: Array[String]
+		match _mode:
+			"menu":    src = _MENU_TRACKS
+			"dungeon": src = _DUNGEON_TRACKS   # fallback; theme already picked at start
+			_:         src = _SURVIVOR_TRACKS
 		_rebuild_queue(src)
 	if _queue.is_empty():
 		return

@@ -238,11 +238,12 @@ func _place_portals(parent: Node2D) -> void:
 	parent.add_child(_survivor_portal)
 
 	# ── Dungeon Crawler portal (hell red — coming soon) ────────────────────
+	DungeonFloor.current_floor = 1
 	_dungeon_portal = _make_portal_instance(
 		_DUNGEON_PORTAL_POS,
 		Portal.PortalType.DUNGEON_CRAWLER,
-		"",
-		true,
+		"res://scenes/dungeon/dungeon_floor.tscn",
+		false,
 		Color("#FF4400"),
 		"The Descent",
 		Color("#FF8844")

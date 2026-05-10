@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/dungeon/dungeon_floor.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="2"]
+
+[node name="DungeonFloor" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PauseMenu" parent="UILayer" instance=ExtResource("2")]
