@@ -23,6 +23,7 @@ var _player_rooms:   Dictionary = {}   # peer_id  → Vector2i (current grid pos
 var _start_grid:     Vector2i   = Vector2i(5, 5)
 var _hud:            HUD
 var _minimap:        DungeonMinimap
+var _big_map:        DungeonBigMap
 var _local_player:   PlayerController = null
 var _stairs_room:    DungeonRoom      = null
 var _near_stairs:    bool             = false
@@ -34,6 +35,9 @@ func _ready() -> void:
 
 	_minimap = DungeonMinimap.new()
 	$UILayer.add_child(_minimap)
+
+	_big_map = DungeonBigMap.new()
+	add_child(_big_map)
 
 	# Theme music is started after _init_floor determines the theme
 
@@ -249,8 +253,9 @@ func _check_player_rooms() -> void:
 				room.is_discovered = true
 				_rpc_discover_room.rpc(cur.x, cur.y, room.room_type as int)
 
-		# Update minimap player dot
+		# Update minimap and big map player dots
 		_minimap.update_player(peer_id, cur)
+		_big_map.update_player(peer_id, cur)
 
 
 func _handle_local_stairs_input() -> void:
@@ -273,4 +278,6 @@ func _handle_local_stairs_input() -> void:
 
 @rpc("authority", "reliable", "call_local")
 func _rpc_discover_room(gx: int, gy: int, room_type: int) -> void:
-	_minimap.discover_room(Vector2i(gx, gy), room_type as DungeonGenerator.RoomType)
+	var gp := Vector2i(gx, gy)
+	_minimap.discover_room(gp, room_type as DungeonGenerator.RoomType)
+	_big_map.discover_room(gp, room_type as DungeonGenerator.RoomType)

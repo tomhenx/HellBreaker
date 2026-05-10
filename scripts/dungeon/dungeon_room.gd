@@ -108,15 +108,18 @@ func on_player_entered(peer_id: int) -> void:
 func _server_spawn_enemies() -> void:
 	match room_type:
 		DungeonGenerator.RoomType.BOSS:
-			_enemy_count = 1
+			_enemy_count = 0
 			if multiplayer.has_multiplayer_peer():
 				_rpc_spawn_enemy.rpc(_BOSS_SCENE, Vector2(ROOM_W * 0.5, ROOM_H * 0.35), "boss_0")
 			else:
 				_do_spawn_enemy(_BOSS_SCENE, Vector2(ROOM_W * 0.5, ROOM_H * 0.35), "boss_0")
-			_set_locked(true)
+			if _enemy_count > 0:
+				_set_locked(true)
+			else:
+				_auto_clear()
 
 		DungeonGenerator.RoomType.MINIBOSS:
-			_enemy_count = 2
+			_enemy_count = 0
 			var mb0 := _MINIBOSS_POOL[(floor_level) % _MINIBOSS_POOL.size()]
 			var mb1 := _MINIBOSS_POOL[(floor_level + 1) % _MINIBOSS_POOL.size()]
 			if multiplayer.has_multiplayer_peer():
@@ -125,11 +128,14 @@ func _server_spawn_enemies() -> void:
 			else:
 				_do_spawn_enemy(mb0, Vector2(ROOM_W * 0.5, ROOM_H * 0.35), "mb_0")
 				_do_spawn_enemy(mb1, Vector2(ROOM_W * 0.38, ROOM_H * 0.55), "mb_1")
-			_set_locked(true)
+			if _enemy_count > 0:
+				_set_locked(true)
+			else:
+				_auto_clear()
 
 		DungeonGenerator.RoomType.COMBAT:
+			_enemy_count = 0
 			var count := clampi(_rng.randi_range(2 + floor_level, 4 + floor_level), 2, 8)
-			_enemy_count = count
 			var pool := _enemy_pool()
 			for i in range(count):
 				var sp  := _random_spawn_pos()
@@ -139,7 +145,7 @@ func _server_spawn_enemies() -> void:
 					_rpc_spawn_enemy.rpc(sc, sp, nm)
 				else:
 					_do_spawn_enemy(sc, sp, nm)
-			if count > 0:
+			if _enemy_count > 0:
 				_set_locked(true)
 			else:
 				_auto_clear()
@@ -169,10 +175,11 @@ func _do_spawn_enemy(scene_path: String, local_pos: Vector2, ename: String) -> v
 	enemy.position = local_pos
 	_enemies_node.add_child(enemy)
 	if not multiplayer.has_multiplayer_peer() or multiplayer.is_server():
+		_enemy_count += 1
 		enemy.died.connect(_on_enemy_died)
 
 
-func _on_enemy_died() -> void:
+func _on_enemy_died(_dead_enemy: BaseEnemy) -> void:
 	_enemy_count -= 1
 	if _enemy_count <= 0:
 		_mark_cleared()
